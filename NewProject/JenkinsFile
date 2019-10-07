@@ -1,0 +1,59 @@
+#!/usr/bin/groovy
+def gitURL=''
+def buildNode=(AGENT_LABEL != '') ? AGENT_LABEL : 'GRADLE_HOME'
+def git_credentials_id = 'GITHUB_SCMADM_SSH_KEY'
+
+pipeline {
+      
+        parameters {
+         
+         string(name: 'APIrunnerName', defaultValue: 'DemoRunner' , description:'API runner to be executed'
+         string(name: 'UIrunnerName', defaultValue: 'DemoRunnerUI' , description:'UI runner to be executed'
+         choice(name: 'browserName' , choices:"chrome/nie" , description : 'Browser to run')
+          }
+          stages{
+           stage('Gradle build run')
+           {
+           parallel{
+            stage('API testing'){
+           agent{ label 'GRADLE_HOME'}
+           
+                steps{
+                   script{
+                     try{
+                       gitCheckout(gitURL,'master',git_credential_id)
+                       bat './gradlew taskExecution -PrunnerName ='+"${params.APIrunnerName}"+'
+                       }
+                       catch(Exception e){
+                          bat "exit 1"
+                         }
+                         finally{
+                         gradleTest.publishReport("API_Report","index.html","reports") 
+                         }
+                         }
+                     } 
+                     }  
+            stage('UI testing'){
+           agent{ label 'GRADLE_HOME'}
+           
+                steps{
+                   script{
+                     try{
+                       gitCheckout(gitURL,'master',git_credential_id)
+                       bat './gradlew taskExecution -PrunnerName ='+"${params.UIrunnerName}"+' -browserName ='+"${params.browserName}"+'
+                       }
+                       catch(Exception e){
+                          bat "exit 1"
+                         }
+                         finally{
+                         gradleTest.publishReport("UI_Report","index.html","reports") 
+                         }
+                         }
+                     } 
+                     }
+                   }
+                  }
+                 }
+           }                       
+                        
+         
