@@ -1,5 +1,5 @@
 #!/usr/bin/groovy
-def gitURL=''
+def gitURL='git@github.com:sdas020/Serenity.git'
 def buildNode=(AGENT_LABEL != '') ? AGENT_LABEL : 'GRADLE_HOME'
 def git_credentials_id = 'GITHUB_SCMADM_SSH_KEY'
 
