@@ -54,6 +54,6 @@ task taskExecution(){
     
     def runnerName=project.hasProperty('runnerName') ? runnerName:''
     println "runner Name is $runnerName"
-    include "**/${runnerName}.class"
+    //include "**/${runnerName}.class"
 }
 
