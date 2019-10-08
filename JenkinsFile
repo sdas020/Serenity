@@ -22,7 +22,7 @@ pipeline {
                    script{
                      try{
                        gitCheckout(gitURL,'master',git_credential_id)
-                       bat './gradlew taskExecution -PrunnerName ='+"${params.APIrunnerName}"+'
+                       bat './gradlew taskExecution -PrunnerName ='+"${params.APIrunnerName}"+''
                        }
                        catch(Exception e){
                           bat "exit 1"
@@ -40,7 +40,7 @@ pipeline {
                    script{
                      try{
                        gitCheckout(gitURL,'master',git_credential_id)
-                       bat './gradlew taskExecution -PrunnerName ='+"${params.UIrunnerName}"+' -browserName ='+"${params.browserName}"+'
+                       bat './gradlew taskExecution -PrunnerName ='+"${params.UIrunnerName}"+' -browserName ='+"${params.browserName}"+''
                        }
                        catch(Exception e){
                           bat "exit 1"
