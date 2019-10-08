@@ -7,8 +7,8 @@ pipeline {
       
         parameters {
          
-         string(name: 'APIrunnerName', defaultValue: 'DemoRunner' , description:'API runner to be executed'
-         string(name: 'UIrunnerName', defaultValue: 'DemoRunnerUI' , description:'UI runner to be executed'
+         string(name: 'APIrunnerName', defaultValue: 'DemoRunner' , description:'API runner to be executed')
+         string(name: 'UIrunnerName', defaultValue: 'DemoRunnerUI' , description:'UI runner to be executed')
          choice(name: 'browserName' , choices:"chrome/nie" , description : 'Browser to run')
           }
           stages{
